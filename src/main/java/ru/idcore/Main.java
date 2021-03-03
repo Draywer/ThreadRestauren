@@ -4,9 +4,9 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException {
-        int totalOrders = 10;//количество исполненных заказов перед закрытием
-        int executedOrders = 5;//максимальное количество одновременно исполняемых заказов
-        int countWaiters = 2;
+        int totalOrders = 5;//количество исполненных заказов перед закрытием
+        int executedOrders = 2;//максимальное количество одновременно исполняемых заказов
+        int countWaiters = 3;
         int timeForWaiting = 2_000;
         int timeForExecute = 4_000;
 
