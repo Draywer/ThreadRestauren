@@ -215,27 +215,39 @@ public class Kitchen {
     }
 
     public boolean checkGuestOrderStatus(Guest guest, OrderStatus orderStatus) {
-        boolean result = false;
-        for (Order order : orderList
-        ) {
-            if (order.getGuest().getId() == guest.getId() & order.getStatus().equals(orderStatus)) {
-                result = true;
-                break;
+        locker.lock();
+        try {
+            boolean result = false;
+            for (Order order : orderList
+            ) {
+                if (order.getGuest().getId() == guest.getId() & order.getStatus().equals(orderStatus)) {
+                    result = true;
+                    break;
+                }
             }
+            return result;
+
+        } finally {
+            locker.unlock();
         }
-        return result;
     }
 
     public boolean checkOrdersStatus(OrderStatus orderStatus) {
-        boolean result = false;
-        for (Order order : orderList
-        ) {
-            if (order.getStatus().equals(orderStatus)) {
-                result = true;
-                break;
+        locker.lock();
+        try {
+            boolean result = false;
+            for (Order order : orderList
+            ) {
+                if (order.getStatus().equals(orderStatus)) {
+                    result = true;
+                    break;
+                }
             }
+            return result;
+        } finally {
+            locker.unlock();
         }
-        return result;
+
     }
 
     public Order getOrder(OrderStatus orderStatus) {
