@@ -61,9 +61,6 @@ public class Restaurant extends Thread {
     public void run() {
         System.out.println("Ресторан открыт");
 
-        ThreadGroup waitersGroup = new ThreadGroup("Waiters");
-
-
         for (int i = 0; i < countWaiters; i++) {
             Waiter waiter = new Waiter(this, i);
             waiter.start();
@@ -75,8 +72,6 @@ public class Restaurant extends Thread {
                 kitchen.executeOrder();
                 System.out.println("Количество выполненных заказов: " + kitchen.getCountOrders());
                 if (kitchen.getCountOrders() == kitchen.getTotalOrders()) {
-                    waitersGroup.interrupt();
-                    waitersGroup.destroy();
                     break;
                 }
             } catch (InterruptedException e) {

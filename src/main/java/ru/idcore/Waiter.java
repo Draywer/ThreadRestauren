@@ -11,20 +11,13 @@ public class Waiter extends Thread {
     @Override
     public void run() {
         System.out.println(this.getName() + " в зале...");
-        while (true) {
-            try {
+        try {
+            do {
                 Thread.sleep(restaurant.getKitchen().getTimeForWaiting());
-                //restaurant.waitGuestOrder();
-                if (restaurant.getKitchen().getCountOrders() == restaurant.getKitchen().getTotalOrders() &
-                        !restaurant.getKitchen().checkOrdersStatus(OrderStatus.STATUS_NEW)) {
-                    break;
-                } else {
-                    restaurant.waitGuestOrder();
-                }
-
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+                restaurant.waitGuestOrder();
+            } while (restaurant.getKitchen().checkOrdersStatus(OrderStatus.STATUS_NEW));
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
         System.out.println(this.getName() + " закончил работу...");
     }
