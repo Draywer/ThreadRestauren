@@ -63,6 +63,7 @@ public class Restaurant extends Thread {
 
         for (int i = 0; i < countWaiters; i++) {
             Waiter waiter = new Waiter(this, i);
+            waiter.setDaemon(true);
             waiter.start();
         }
 

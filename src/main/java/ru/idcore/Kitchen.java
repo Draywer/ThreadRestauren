@@ -182,7 +182,7 @@ public class Kitchen {
             assert order != null;
             System.out.printf("%s получил заказ от Кухни для %s\n", Thread.currentThread().getName(), order.getGuest().getName());
             queNotEmpty.signalAll();
-
+            newOrder.signalAll();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } finally {
@@ -202,6 +202,7 @@ public class Kitchen {
                 System.out.println("Кухня выполнила заказ");
                 countOrders++;
                 queNotExecute.signalAll();
+                newOrder.signalAll();
             } else {
                 System.out.println("Кухня ожидает заказы..." + receivedOrders.size());
             }
